@@ -12,7 +12,7 @@ using namespace std;
 int threshold_value = 80;
 int const max_value = 255;
 
-Mat camFrame, grayFrame, binFrame, dst;
+Mat camFrame, grayFrame, binFrame, cannyFrame;
 
 const char* threshed_window = "Binary";
 
@@ -27,14 +27,16 @@ int main() {
 
     while (true) {
         stream1.read(camFrame);
-        imshow("Webcam", camFrame);
+        imshow("Camera", camFrame);
 
-        //Canny( camFrame, grayFrame, 0.25, 0.5, 3, true );
         cvtColor( camFrame, grayFrame, COLOR_BGR2GRAY );
         //imshow("Grayscale", grayFrame);
 
         createTrackbar( "Threshold: ", threshed_window, &threshold_value, max_value, Threshold_Demo);
         Threshold_Demo( 0, 0 );
+
+        Canny( camFrame, cannyFrame, 50, 100, 3, true );
+        imshow("Canny", cannyFrame);
 
         if (waitKey(30) >= 0 )
             break;
