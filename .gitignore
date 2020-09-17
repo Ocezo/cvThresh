@@ -1,3 +1,6 @@
 img/*.png
 build/*
 
+*.cproject
+*.project
+.settings/*
